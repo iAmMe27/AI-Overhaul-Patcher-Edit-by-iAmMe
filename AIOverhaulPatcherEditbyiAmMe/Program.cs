@@ -1,7 +1,7 @@
 using Mutagen.Bethesda;
 using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.Skyrim;
-using Mutagen.Bethesda.WPF.Reflection.Attributes;.
+using Mutagen.Bethesda.WPF.Reflection.Attributes;
 using Mutagen.Bethesda.Plugins;
 using Noggog;
 using AIOverhaulPatcher.Utilities;
