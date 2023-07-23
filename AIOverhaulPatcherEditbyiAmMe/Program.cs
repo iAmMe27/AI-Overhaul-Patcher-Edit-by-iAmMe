@@ -68,6 +68,10 @@ namespace AIOverhaulPatcherEditbyiAmMe
             {
                 System.Console.WriteLine("Open World Loot not found, ignoring...");
             }
+            else
+            {
+                System.Console.WriteLine("Open World Loot detected, will patch OWL records");
+            }
 
             int bmax = 10;
             int b = 0;
@@ -115,7 +119,6 @@ namespace AIOverhaulPatcherEditbyiAmMe
                     {
                         patchNpc.Factions.Add(fac.DeepCopy());
                         change = true;
-
                     }
                 }
 
@@ -133,7 +136,6 @@ namespace AIOverhaulPatcherEditbyiAmMe
                         var aioOrder = npc.Packages.Select(x => x.FormKey).ToList();
                         patchNpc.Packages.Clear();
                         PackagesToAdd.OrderBy(x => npc.Packages.Contains(x) ? aioOrder.IndexOf(x) : (npc.Packages.Count + PackagesToAdd.IndexOf(x))).ForEach(x => patchNpc.Packages.Add(x));
-
                     }
                 }
 
@@ -147,9 +149,13 @@ namespace AIOverhaulPatcherEditbyiAmMe
                 if (npc.DefaultOutfit.FormKey != patchNpc.DefaultOutfit.FormKey)
                 {
                     if (OverwrittingOutfit.HasValue && !OverwrittingOutfit.Value.IsNull)
+                    {
                         patchNpc.DefaultOutfit.SetTo(OverwrittingOutfit);
+                    }
                     else
+                    {
                         patchNpc.DefaultOutfit.SetToNull();
+                    }
 
                     change = true;
 
@@ -158,11 +164,15 @@ namespace AIOverhaulPatcherEditbyiAmMe
                 if (npc.SleepingOutfit.FormKey != patchNpc.SleepingOutfit.FormKey)
                 {
                     if (OverwrittingSleepingOutfit.HasValue && !OverwrittingSleepingOutfit.Value.IsNull)
+                    {
                         patchNpc.SleepingOutfit.SetTo(OverwrittingSleepingOutfit);
+                    }
                     else
+                    {
                         patchNpc.SleepingOutfit.SetToNull();
-                    change = true;
+                    }
 
+                    change = true;
 
                 }
 
@@ -170,9 +180,14 @@ namespace AIOverhaulPatcherEditbyiAmMe
                 if (npc.SpectatorOverridePackageList.FormKey != patchNpc.SpectatorOverridePackageList.FormKey)
                 {
                     if (!npc.SpectatorOverridePackageList.IsNull)
+                    {
                         patchNpc.SpectatorOverridePackageList.SetTo(npc.SpectatorOverridePackageList);
+                    }
                     else
+                    {
                         patchNpc.SpectatorOverridePackageList.SetToNull();
+                    }
+
                     change = true;
 
                 }
@@ -180,12 +195,15 @@ namespace AIOverhaulPatcherEditbyiAmMe
                 if (npc.CombatOverridePackageList.FormKey != patchNpc.CombatOverridePackageList.FormKey)
                 {
                     if (!npc.CombatOverridePackageList.IsNull)
+                    {
                         patchNpc.CombatOverridePackageList.SetTo(npc.CombatOverridePackageList);
+                    }
                     else
+                    {
                         patchNpc.CombatOverridePackageList.SetToNull();
+                    }
+
                     change = true;
-
-
                 }
 
                 if (npc.ObserveDeadBodyOverridePackageList != patchNpc.ObserveDeadBodyOverridePackageList)
@@ -229,8 +247,6 @@ namespace AIOverhaulPatcherEditbyiAmMe
                 {
                     patchNpc.AIData.Confidence = (Confidence)Math.Min((int)patchNpc.AIData.Confidence, (int)npc.AIData.Confidence);
                     change = true;
-
-
                 }
 
                 // NPC VMAD stuff
@@ -241,9 +257,10 @@ namespace AIOverhaulPatcherEditbyiAmMe
                     {
                         change = true;
 
-
                         if (patchNpc.VirtualMachineAdapter == null)
+                        {
                             patchNpc.VirtualMachineAdapter = npc.VirtualMachineAdapter.DeepCopy();
+                        }
                         else
                         {
                             ScriptsToForward.ForEach(x => patchNpc.VirtualMachineAdapter.Scripts.Add(x.DeepCopy()));
@@ -252,14 +269,16 @@ namespace AIOverhaulPatcherEditbyiAmMe
 
                 }
 
-
                 if (_settings.Value.IgnoreIdenticalToLastOverride && !change)
                 {
                     state.PatchMod.Npcs.Remove(npc);
                 }
+
                 b++;
                 processed++;
+
             }
+
             if (state.PatchMod.ModKey.Name == AioPatchName)
             {
                 state.PatchMod.ModHeader.Flags = state.PatchMod.ModHeader.Flags | SkyrimModHeader.HeaderFlag.LightMaster;
