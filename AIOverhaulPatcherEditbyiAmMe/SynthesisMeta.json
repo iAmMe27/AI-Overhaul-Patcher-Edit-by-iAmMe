@@ -1,0 +1,12 @@
+{
+  "Nickname": "",
+  "Visibility": "Visible",
+  "OneLineDescription": "iAm's edit of the AI Overhaul patcher to incorporate OWL changes.",
+  "LongDescription": "",
+  "PreferredAutoVersioning": "Default",
+  "RequiredMods": [],
+  "TargetedReleases": [
+    "SkyrimSE",
+    "SkyrimSEGog"
+  ]
+}
