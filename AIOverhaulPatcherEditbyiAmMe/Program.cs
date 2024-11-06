@@ -281,7 +281,8 @@ namespace AIOverhaulPatcherEditbyiAmMe
 
             if (state.PatchMod.ModKey.Name == AioPatchName)
             {
-                state.PatchMod.ModHeader.Flags = state.PatchMod.ModHeader.Flags | SkyrimModHeader.HeaderFlag.LightMaster;
+                // Terminology for mod header flags was changed from Light => Small/Medium/Full terminology as used in Starfield ESPs, in recent Mutagen updates
+                state.PatchMod.ModHeader.Flags = state.PatchMod.ModHeader.Flags | SkyrimModHeader.HeaderFlag.Small;
             }
         }
     }
